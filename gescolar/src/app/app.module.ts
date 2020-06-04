@@ -1,3 +1,4 @@
+import { ProfessoresModule } from './professores/professores.module';
 import {NgModule, LOCALE_ID} from '@angular/core';
 import {FormsModule} from '@angular/forms';
 import {HttpClientModule} from '@angular/common/http';
@@ -94,17 +95,14 @@ import { CoreModule } from './core/core.module';
 
 @NgModule({
     imports: [
-
-        
         SharedModule,
         SegurancaModule,
         AppRoutingModule,
         CoreModule,
-        
+        ProfessoresModule,
 
         BrowserModule,
         FormsModule,
-        
         HttpClientModule,
         BrowserAnimationsModule,
         AccordionModule,
@@ -182,9 +180,9 @@ import { CoreModule } from './core/core.module';
         AppBreadcrumbComponent,
         AppTopBarComponent,
         AppFooterComponent,
-       
+
     ],
-    providers: [BreadcrumbService,{ provide: LOCALE_ID, useValue: 'pt' }     
+    providers: [BreadcrumbService,{ provide: LOCALE_ID, useValue: 'pt' }
     ],
     bootstrap: [AppComponent]
 })

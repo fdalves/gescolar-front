@@ -1,3 +1,4 @@
+
 export class Chamada {
   codigo: any;
   periodosSelecionados = [];
@@ -48,7 +49,7 @@ export class Lancamento {
 }
 
 
-export class Professor {
+export  class Professor {
   codigo: number;
   nome: string;
   email: string;

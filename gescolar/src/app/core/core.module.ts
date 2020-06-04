@@ -1,3 +1,4 @@
+import { ProfessorService } from './../professores/professor.service';
 import { NgModule, LOCALE_ID } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
@@ -22,17 +23,13 @@ import { Title } from '@angular/platform-browser';
     HttpClientModule,
     RouterModule,
     ConfirmDialogModule,
-    
-    
     ],
   declarations: [
-
     PaginaNaoEncontradaComponent,
     NaoAutorizadoComponent
   ],
   exports: [
     ConfirmDialogModule,
-    
   ],
   providers: [
     ErrorHandlerService,
@@ -43,6 +40,7 @@ import { Title } from '@angular/platform-browser';
     JwtHelperService,
     Title,
     MessageService,
+    ProfessorService,
     { provide: LOCALE_ID, useValue: 'pt-BR' }
   ]
 })

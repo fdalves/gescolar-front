@@ -12,6 +12,7 @@ import { GescolarHttp } from '../seguranca/gescolar-http';
 import { GrowMessageService } from '../shared/grow-message.service';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { Title } from '@angular/platform-browser';
+import { MenuService } from '../app.menu.service';
 
 
 
@@ -41,6 +42,7 @@ import { Title } from '@angular/platform-browser';
     Title,
     MessageService,
     ProfessorService,
+    MenuService,
     { provide: LOCALE_ID, useValue: 'pt-BR' }
   ]
 })

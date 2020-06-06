@@ -23,7 +23,7 @@
 
         <div class="ui-g-12 ui-md-12">
           <span class="md-inputfield">
-            <p-inputMask mask="999.999.999-99" type="text" [(ngModel)]="cpf" [cpf]="cpf" formControlName="cpf" name="cpf"></p-inputMask>
+            <p-inputMask mask="999.999.999-99" type="text" [(ngModel)]="cpf"  formControlName="cpf" name="cpf"></p-inputMask>
             <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!formulario.controls['cpf'].valid&&formulario.controls['cpf'].dirty">
               <span *ngIf="formulario.controls['cpf'].errors ? formulario.controls['cpf'].errors['required'] : false">O Campo CPF é Obrigatório.</span>
               <span *ngIf="formulario.controls['cpf'].errors ? formulario.controls['cpf'].errors['cpfExistente'] : false">CPF já cadastrata.</span>

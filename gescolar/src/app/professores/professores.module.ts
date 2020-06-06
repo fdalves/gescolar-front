@@ -4,7 +4,6 @@ import { DialogModule } from 'primeng/dialog';
 import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
 import { NgModule } from '@angular/core';
-import { CpfCnpjModule } from 'ng2-cpf-cnpj';
 import { ProfessorPesquisaComponent } from './professor-pesquisa/professor-pesquisa.component';
 import { ProfessorCadastroComponent } from './professor-cadastro/professor-cadastro.component';
 import { TableModule } from 'primeng/table';
@@ -22,7 +21,7 @@ import { InputMaskModule, DropdownModule, FieldsetModule, FileUploadModule, Pane
   imports: [
     CommonModule,
     ProfessoresRoutingModule,
-    CpfCnpjModule,
+
     FormsModule,
     ReactiveFormsModule,
 

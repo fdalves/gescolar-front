@@ -1,3 +1,4 @@
+import { AppMainComponent } from './../app.main.component';
 import { NgModule } from '@angular/core';
 import { ProfessorCadastroComponent } from './professor-cadastro/professor-cadastro.component';
 import { Routes, RouterModule } from '@angular/router';
@@ -8,20 +9,26 @@ import { AuthGuard } from 'src/app/seguranca/auth.guard';
 
 
 const routes: Routes = [
-  {
-    path: 'professores',
-    component: ProfessorPesquisaComponent,
-    canActivate: [AuthGuard],
-    data: { roles: ['ROLE_ADM'] }
-  },
-  {
-    path: 'professores/nova',
-    component: ProfessorCadastroComponent
-   },
-  {
-    path: 'professores/:codigo',
-    component: ProfessorCadastroComponent,
-   }
+
+
+  { path: '', component: AppMainComponent,
+  children: [
+    {
+        path: 'professores',
+        component: ProfessorPesquisaComponent,
+        canActivate: [AuthGuard],
+        data: { roles: ['ROLE_ADM'] }
+      },
+      {
+        path: 'professores/nova',
+        component: ProfessorCadastroComponent
+       },
+       {
+        path: 'professores/:codigo',
+        component: ProfessorCadastroComponent,
+       }
+  ]},
+
 ];
 
 @NgModule({

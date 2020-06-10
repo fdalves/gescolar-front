@@ -8,6 +8,7 @@ import { ErrorHandlerService } from './../../core/error-handler.service';
 import { ProfessorService } from './../professor.service';
 import { OnInit, Component } from '@angular/core';
 import { Professor } from 'src/app/core/model';
+import { ValidateBrService } from 'angular-validate-br';
 
 
 
@@ -33,7 +34,8 @@ export class ProfessorCadastroComponent implements OnInit {
                 private router: Router,
                 private title: Title,
                 private messageService: GrowMessageService,
-                private fb: FormBuilder) { }
+                private fb: FormBuilder,
+                private validateBrService: ValidateBrService) { }
 
   ngOnInit() {
     const codigoProfessor = this.route.snapshot.params['codigo'];
@@ -58,7 +60,7 @@ export class ProfessorCadastroComponent implements OnInit {
       'codigo': [],
       'nome': new FormControl('', Validators.compose([Validators.required, Validators.minLength(4)])),
       'email': new FormControl('', Validators.compose([Validators.required, Validators.pattern(this.emailPattern)])),
-      'cpf': new FormControl('', Validators.compose([Validators.required]),
+      'cpf': new FormControl('', Validators.compose([Validators.required, this.validateBrService.cpf]),
       [this.validateCpf.bind(this)]),
       'telefone': [],
       'celular': [],

@@ -92,6 +92,7 @@ import { SegurancaModule } from './seguranca/seguranca.module';
 import { SharedModule } from 'primeng';
 import { AppRoutingModule } from './app-routing.module';
 import { CoreModule } from './core/core.module';
+import { AngularValidateBrLibModule } from 'angular-validate-br';
 
 @NgModule({
     imports: [
@@ -100,6 +101,7 @@ import { CoreModule } from './core/core.module';
         AppRoutingModule,
         CoreModule,
         ProfessoresModule,
+        AngularValidateBrLibModule,
 
         BrowserModule,
         FormsModule,

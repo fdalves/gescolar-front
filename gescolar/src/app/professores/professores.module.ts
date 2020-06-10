@@ -1,3 +1,4 @@
+import { AngularValidateBrLibModule } from 'angular-validate-br';
 import { DataViewModule } from 'primeng/dataview';
 import { DialogModule } from 'primeng/dialog';
 
@@ -21,7 +22,7 @@ import { InputMaskModule, DropdownModule, FieldsetModule, FileUploadModule, Pane
   imports: [
     CommonModule,
     ProfessoresRoutingModule,
-
+    AngularValidateBrLibModule,
     FormsModule,
     ReactiveFormsModule,
 

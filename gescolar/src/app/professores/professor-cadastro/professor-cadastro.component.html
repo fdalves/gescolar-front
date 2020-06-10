@@ -27,7 +27,7 @@
             <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!formulario.controls['cpf'].valid&&formulario.controls['cpf'].dirty">
               <span *ngIf="formulario.controls['cpf'].errors ? formulario.controls['cpf'].errors['required'] : false">O Campo CPF é Obrigatório.</span>
               <span *ngIf="formulario.controls['cpf'].errors ? formulario.controls['cpf'].errors['cpfExistente'] : false">CPF já cadastrata.</span>
-              <span *ngIf="formulario.controls['cpf'].errors ? formulario.controls['cpf'].errors['cpf'] : false">CPF inválido.</span>
+              <span *ngIf="formulario.controls['cpf'].errors ? formulario.controls['cpf'].errors['cpfvalidator'] : false">CPF inválido.</span>
             </div>
             <label>CPF</label>
           </span>

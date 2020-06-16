@@ -1,3 +1,4 @@
+import { ToastModule } from 'primeng/toast';
 import { environment } from './../../environments/environment';
 
 import { FormsModule } from '@angular/forms';
@@ -27,6 +28,7 @@ export function tokenGetter() {
     ProgressSpinnerModule,
     InputTextModule,
     ButtonModule,
+    ToastModule,
 
     JwtModule.forRoot({
       config: {

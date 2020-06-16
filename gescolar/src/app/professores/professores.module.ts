@@ -1,3 +1,4 @@
+import { ToastModule } from 'primeng/toast';
 import { AngularValidateBrLibModule } from 'angular-validate-br';
 import { DataViewModule } from 'primeng/dataview';
 import { DialogModule } from 'primeng/dialog';
@@ -25,6 +26,7 @@ import { InputMaskModule, DropdownModule, FieldsetModule, FileUploadModule, Pane
     AngularValidateBrLibModule,
     FormsModule,
     ReactiveFormsModule,
+    ToastModule,
 
     InputTextModule,
     ButtonModule,

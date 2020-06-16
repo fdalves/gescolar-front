@@ -1,5 +1,6 @@
-import {Injectable} from '@angular/core';
+import { Injectable } from '@angular/core';
 import { MessageService } from 'primeng';
+
 
 
 @Injectable()
@@ -33,7 +34,6 @@ export class GrowMessageService {
   }
 
   addErro(detail: string) {
-    console.error('dfsdkfjshd1');
     this.addSingleError('Mensagem de Erro', detail);
   }
 

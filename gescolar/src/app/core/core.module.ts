@@ -1,18 +1,21 @@
+import { ToastModule } from 'primeng/toast';
 import { ProfessorService } from './../professores/professor.service';
 import { NgModule, LOCALE_ID } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
-import { ConfirmDialogModule, ConfirmationService, MessageService } from 'primeng';
 import { PaginaNaoEncontradaComponent } from './pagina-nao-encontrada.component';
 import { NaoAutorizadoComponent } from './nao-autorizado.component';
 import { ErrorHandlerService } from './error-handler.service';
 import { AuthService } from '../seguranca/auth.service';
 import { GescolarHttp } from '../seguranca/gescolar-http';
 import { GrowMessageService } from '../shared/grow-message.service';
-import { JwtHelperService } from '@auth0/angular-jwt';
-import { Title } from '@angular/platform-browser';
+
 import { MenuService } from '../app.menu.service';
+import { Title } from '@angular/platform-browser';
+import { ConfirmationService, MessageService } from 'primeng/api';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { JwtHelperService } from '@auth0/angular-jwt';
 
 
 
@@ -24,6 +27,7 @@ import { MenuService } from '../app.menu.service';
     HttpClientModule,
     RouterModule,
     ConfirmDialogModule,
+    ToastModule,
     ],
   declarations: [
     PaginaNaoEncontradaComponent,
@@ -31,6 +35,7 @@ import { MenuService } from '../app.menu.service';
   ],
   exports: [
     ConfirmDialogModule,
+    ToastModule
   ],
   providers: [
     ErrorHandlerService,
@@ -38,11 +43,18 @@ import { MenuService } from '../app.menu.service';
     ConfirmationService,
     GescolarHttp,
     GrowMessageService,
-    JwtHelperService,
-    Title,
-    MessageService,
+
+
+
     ProfessorService,
     MenuService,
+
+    ConfirmationService,
+    MessageService,
+    JwtHelperService,
+    Title,
+
+
     { provide: LOCALE_ID, useValue: 'pt-BR' }
   ]
 })

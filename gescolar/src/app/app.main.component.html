@@ -6,13 +6,22 @@
 
     <app-menu></app-menu>
 
+
+
     <div class="layout-main">
         <app-topbar></app-topbar>
 
         <app-breadcrumb></app-breadcrumb>
 
         <div class="layout-content">
-            <router-outlet></router-outlet>
+
+            <p-toast  [baseZIndex]="1005000">
+
+            </p-toast>
+
+            <router-outlet>
+            </router-outlet>
+
         </div>
 
         <app-config></app-config>

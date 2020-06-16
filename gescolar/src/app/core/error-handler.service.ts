@@ -1,10 +1,10 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { NotAuthenticatedError } from './../seguranca/gescolar-http';
-
-
 import { Router } from '@angular/router';
 import { Injectable } from '@angular/core';
-import { HttpErrorResponse } from '@angular/common/http';
-import { GrowMessageService } from '../shared/grow-message.service';
+import { MessageService } from 'primeng/api';
+
+
 
 
 
@@ -16,7 +16,7 @@ export class ErrorHandlerService {
 
   constructor(
     private router: Router,
-    private growMessageService: GrowMessageService,
+    private messageService: MessageService,
   ) { }
 
   handle(errorResponse: any) {
@@ -45,6 +45,7 @@ export class ErrorHandlerService {
       try {
         msg = errorResponse.error[0].mensagemUsuario;
       } catch (e) {
+        msg = 'Erro ao processar serviço remoto. Tente novamente.';
         console.error('Ocorreu um erro', errorResponse);
       }
 
@@ -63,7 +64,9 @@ export class ErrorHandlerService {
       }
     }
 
-    this.growMessageService.addErro(msg);
+    this.messageService.add({ severity: 'error', detail: msg });
+
+
   }
 
 }

@@ -26,7 +26,7 @@ export class AppMenuComponent implements OnInit {
               },
 
               {
-                label: 'Calendario', icon: 'settings',
+                label: 'Calendario', icon: 'grid_on',
                 items: [
                     {label: 'Calendario Escolar', icon: 'label', routerLink: ['/calendario'] }
                 ]

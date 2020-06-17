@@ -1,3 +1,4 @@
+import { AlunosModule } from './alunos/alunos.module';
 import { CalendarioModule } from './calendario/calendario.module';
 import { ProfessoresModule } from './professores/professores.module';
 import {NgModule, LOCALE_ID} from '@angular/core';
@@ -105,6 +106,7 @@ import { AngularValidateBrLibModule } from 'angular-validate-br';
         ProfessoresModule,
         AngularValidateBrLibModule,
         CalendarioModule,
+        AlunosModule,
 
         BrowserModule,
         FormsModule,

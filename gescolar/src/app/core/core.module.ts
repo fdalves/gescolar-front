@@ -1,3 +1,4 @@
+import { AlunosService } from './../alunos/alunos.service';
 import { ToastModule } from 'primeng/toast';
 import { ProfessorService } from './../professores/professor.service';
 import { NgModule, LOCALE_ID } from '@angular/core';
@@ -16,6 +17,7 @@ import { Title } from '@angular/platform-browser';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { JwtHelperService } from '@auth0/angular-jwt';
+import { ResponsavelService } from '../alunos/responsavel.service';
 
 
 
@@ -47,6 +49,8 @@ import { JwtHelperService } from '@auth0/angular-jwt';
 
 
     ProfessorService,
+    AlunosService,
+    ResponsavelService,
     MenuService,
 
     ConfirmationService,

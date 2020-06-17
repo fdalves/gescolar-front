@@ -1,3 +1,4 @@
+import { CalendarioModule } from './calendario/calendario.module';
 import { ProfessoresModule } from './professores/professores.module';
 import {NgModule, LOCALE_ID} from '@angular/core';
 import {FormsModule} from '@angular/forms';
@@ -94,6 +95,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { CoreModule } from './core/core.module';
 import { AngularValidateBrLibModule } from 'angular-validate-br';
 
+
 @NgModule({
     imports: [
         SharedModule,
@@ -102,6 +104,7 @@ import { AngularValidateBrLibModule } from 'angular-validate-br';
         CoreModule,
         ProfessoresModule,
         AngularValidateBrLibModule,
+        CalendarioModule,
 
         BrowserModule,
         FormsModule,
@@ -182,7 +185,6 @@ import { AngularValidateBrLibModule } from 'angular-validate-br';
         AppBreadcrumbComponent,
         AppTopBarComponent,
         AppFooterComponent,
-
     ],
     providers: [BreadcrumbService,{ provide: LOCALE_ID, useValue: 'pt' }
     ],

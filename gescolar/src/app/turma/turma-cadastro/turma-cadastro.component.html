@@ -1,0 +1,130 @@
+<div class="ui-fluid">
+  <div class="no-margin">
+    <h1>Cadastro Turmas</h1>
+    <p-tabView>
+      <p-tabPanel header="Dados Gerais" leftIcon="ui-icon-check">
+        <p></p>
+        <form [formGroup]="formulario" (ngSubmit)="salvar()" autocomplete="off">
+          <div class="ui-g form-group">
+
+            <div class="ui-g-12 ui-md-12">
+              <span class="md-inputfield">
+                <input type="text" pInputText formControlName="nome" name="nome">
+                <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!formulario.controls['nome'].valid&&formulario.controls['nome'].dirty">
+                  <span *ngIf="formulario.controls['nome'].errors['required']">O Campo Nome é Obrigatório.</span>
+                  <span *ngIf="formulario.controls['nome'].errors['minlength']">O Campo Nome deve conter no mínimo 4 caracteres.</span>
+                </div>
+                <label>Name</label>
+              </span>
+            </div>
+
+            <div class="ui-g-12 ui-md-12">
+              <span class="md-inputfield">
+                <input type="text" pInputText formControlName="sala" name="sala">
+                <label>Sala</label>
+              </span>
+            </div>
+
+            <div class="ui-g-12 ui-md-4">
+              <p-dropdown [options]="series" placeholder="Selecione Serie" [filter]="true"  formControlName="serie"></p-dropdown>
+            </div>
+
+            <div class="ui-g-12 ui-md-4">
+              <p-dropdown [options]="turnos" placeholder="Selecione Turno" [filter]="true"  formControlName="turno"></p-dropdown>
+            </div>
+            <div class="ui-g-12 ui-md-4">
+              <span class="md-inputfield">
+                <p-spinner formControlName="vagas"></p-spinner>
+                <label>Vagas Disponíveis</label>
+              </span>
+            </div>
+
+            <div class="ui-g-12 ui-md-12">
+              <p-accordion>
+                <p-accordionTab header="Periodos por Semana ">
+                  <p></p>
+                  <div class="ui-g form-group">
+
+                    <div class="ui-g-12 ui-md-4">
+                      <span class="md-inputfield">
+                        <p-dropdown [options]="diasSem" (onChange)="onChange($event)" formControlName="quantidadeDiasSemana"></p-dropdown>
+                      </span>
+                    </div>
+
+
+                    <div class="ui-g-12 ui-md-6">
+                      <p-table [value]="getPeriodos().controls">
+                        <ng-template pTemplate="header">
+                          <tr>
+                            <th>Dia Semana</th>
+                            <th>Quant Periodos</th>
+                          </tr>
+                        </ng-template>
+                        <ng-template pTemplate="body" let-periodo let-rowIndex="rowIndex">
+
+                          <tr>
+                            <td>
+                              <div formArrayName="periodos">
+                                <div [formGroupName]="rowIndex">
+                                  <input pInputText formControlName="nome" readonly="true">
+                                </div>
+                              </div>
+                            </td>
+                            <td>
+                              <div formArrayName="periodos">
+                                <div [formGroupName]="rowIndex">
+                                  <p-spinner formControlName="quant"></p-spinner>
+                                </div>
+                              </div>
+
+                            </td>
+
+                          </tr>
+
+                        </ng-template>
+
+                      </p-table>
+                    </div>
+
+                  </div>
+                </p-accordionTab>
+
+              </p-accordion>
+
+            </div>
+
+          </div>
+
+
+          <div class="ui-g">
+            <p></p>
+          </div>
+          <hr>
+
+          <div class="ui-g">
+            <div class="ui-g-12 ui-md-3 ">
+              <button pButton type="submit" label="Salvar" [disabled]="formulario.invalid" icon="fa ui-icon-save"></button>
+            </div>
+            <div class="ui-g-12 ui-md-3">
+              <button pButton type="button" label="Novo" (click)="novo()" icon="fa ui-icon-add-circle"></button>
+            </div>
+            <div class="ui-g-12 ui-md-3">
+              <button pButton type="button" icon="fa ui-icon-arrow-back" label="Voltar Pesquisa" routerLink="/turmas">
+              </button>
+            </div>
+          </div>
+
+
+        </form>
+
+
+      </p-tabPanel>
+      <p-tabPanel header="Disciplinas" leftIcon="ui-icon-check" [disabled]="!habilitaGuia">
+        <app-turma-periodo [codigoTurma]="codigo" ></app-turma-periodo>
+      </p-tabPanel>
+      <p-tabPanel header="Alunos" leftIcon="ui-icon-check" [disabled]="!habilitaGuia" >
+        <app-turma-alunos [codigoTurma]="codigo" ></app-turma-alunos>
+      </p-tabPanel>
+    </p-tabView>
+  </div>
+</div>

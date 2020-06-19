@@ -1,4 +1,4 @@
-//import { TurmaService } from './../../turma/turma.service';
+import { TurmaService } from './../../turma/turma.service';
 import { environment } from './../../../environments/environment';
 import { Aluno, Responsavel } from './../../core/model';
 import { AlunosService } from './../alunos.service';
@@ -41,7 +41,7 @@ export class AlunosCadastroComponent implements OnInit {
               private title: Title,
               private messageService: GrowMessageService,
               private fb: FormBuilder,
-            //  private turmaService: TurmaService,
+              private turmaService: TurmaService,
               private responsavelService: ResponsavelService,
               private validateBrService: ValidateBrService ) { }
 
@@ -172,12 +172,12 @@ export class AlunosCadastroComponent implements OnInit {
 
 
   carregarTurmas() {
-   // return this.turmaService.listarTodas()
-    //  .then(turmas => {
-     //   this.turmas = turmas
-      //    .map(t => ({ label: t.nome, value: t.codigo }));
-     // })
-     // .catch(erro => this.errorHandler.handle(erro));
+    return this.turmaService.listarTodas()
+      .then(turmas => {
+        this.turmas = turmas
+          .map(t => ({ label: t.nome, value: t.codigo }));
+      })
+      .catch(erro => this.errorHandler.handle(erro));
   }
 
 

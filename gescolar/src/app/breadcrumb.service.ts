@@ -1,6 +1,7 @@
+import { MenuItem } from 'primeng/primeng';
 import { Injectable } from '@angular/core';
 import { Subject ,  Observable } from 'rxjs';
-import { MenuItem } from 'primeng/primeng';
+
 
 @Injectable()
 export class BreadcrumbService {

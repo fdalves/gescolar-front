@@ -1,3 +1,4 @@
+import { TurmaModule } from './turma/turma.module';
 import { AlunosModule } from './alunos/alunos.module';
 import { CalendarioModule } from './calendario/calendario.module';
 import { ProfessoresModule } from './professores/professores.module';
@@ -107,6 +108,7 @@ import { AngularValidateBrLibModule } from 'angular-validate-br';
         AngularValidateBrLibModule,
         CalendarioModule,
         AlunosModule,
+        TurmaModule,
 
         BrowserModule,
         FormsModule,

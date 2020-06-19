@@ -1,3 +1,4 @@
+import { TurmaService } from './../turma/turma.service';
 import { AlunosService } from './../alunos/alunos.service';
 import { ToastModule } from 'primeng/toast';
 import { ProfessorService } from './../professores/professor.service';
@@ -57,7 +58,7 @@ import { ResponsavelService } from '../alunos/responsavel.service';
     MessageService,
     JwtHelperService,
     Title,
-
+    TurmaService,
 
     { provide: LOCALE_ID, useValue: 'pt-BR' }
   ]

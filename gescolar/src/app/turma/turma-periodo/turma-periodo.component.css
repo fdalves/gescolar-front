@@ -1,0 +1,24 @@
+
+
+::ng-deep p-dialog .ui-dialog-periodo {
+  overflow: scroll;
+  max-height: 80%;
+  width: 70% !important;
+  height: 80% !important;
+}
+
+
+::ng-deep .card {
+  padding: 1px;
+  margin-bottom: 5px;
+}
+
+.dashboard .task-box .task-box-content p {
+  color: black;
+  margin: 0 0 0 0;
+  padding: 0;
+}
+
+::ng-deep .dashboard .task-box.task-box-3 .task-box-header {
+  background-color: darkgray;
+}

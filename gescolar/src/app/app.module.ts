@@ -1,3 +1,4 @@
+import { ChamadaModule } from './chamada/chamada.module';
 import { TurmaModule } from './turma/turma.module';
 import { AlunosModule } from './alunos/alunos.module';
 import { CalendarioModule } from './calendario/calendario.module';
@@ -96,6 +97,9 @@ import { SharedModule } from 'primeng';
 import { AppRoutingModule } from './app-routing.module';
 import { CoreModule } from './core/core.module';
 import { AngularValidateBrLibModule } from 'angular-validate-br';
+import { registerLocaleData } from '@angular/common';
+import localePt from '@angular/common/locales/pt';
+registerLocaleData(localePt);
 
 
 @NgModule({
@@ -109,6 +113,7 @@ import { AngularValidateBrLibModule } from 'angular-validate-br';
         CalendarioModule,
         AlunosModule,
         TurmaModule,
+        ChamadaModule,
 
         BrowserModule,
         FormsModule,
@@ -190,7 +195,7 @@ import { AngularValidateBrLibModule } from 'angular-validate-br';
         AppTopBarComponent,
         AppFooterComponent,
     ],
-    providers: [BreadcrumbService,{ provide: LOCALE_ID, useValue: 'pt' }
+    providers: [BreadcrumbService,{ provide: LOCALE_ID, useValue: 'pt-BR' }
     ],
     bootstrap: [AppComponent]
 })

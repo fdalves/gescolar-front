@@ -1,3 +1,4 @@
+import { ChamadaService } from './../chamada/chamada.service';
 import { TurmaService } from './../turma/turma.service';
 import { AlunosService } from './../alunos/alunos.service';
 import { ToastModule } from 'primeng/toast';
@@ -46,14 +47,11 @@ import { ResponsavelService } from '../alunos/responsavel.service';
     ConfirmationService,
     GescolarHttp,
     GrowMessageService,
-
-
-
     ProfessorService,
     AlunosService,
     ResponsavelService,
     MenuService,
-
+    ChamadaService,
     ConfirmationService,
     MessageService,
     JwtHelperService,

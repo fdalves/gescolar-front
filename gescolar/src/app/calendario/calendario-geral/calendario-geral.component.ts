@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import timeGridPlugin from '@fullcalendar/timegrid';
 import interactionPlugin from '@fullcalendar/interaction';
+import allLocales from '@fullcalendar/core/locales-all';
+
+
 @Component({
   selector: 'app-calendario-geral',
   templateUrl: './calendario-geral.component.html',
@@ -17,9 +20,18 @@ events: any[];
 
   ngOnInit(): void {
 
+
+
     this.fullcalendarOptions = {
+        locale: 'pt-br',
         plugins: [ dayGridPlugin, timeGridPlugin, interactionPlugin ],
-        defaultDate: '2016-01-12',
+        buttonText: {
+            today:    'Hoje',
+            month:    'Mês',
+            week:     'Semana',
+            day:      'Dia',
+            list:     'lista'
+        } ,
         header: {
             left: 'prev,next, today',
             center: 'title',

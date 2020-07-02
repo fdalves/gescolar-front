@@ -9,7 +9,8 @@
                     <div class="ui-g form-group">
                         <div class="ui-g-12 ui-md-4">
                             <div class="shadow-box ui-shadow-3">
-                                <button type="button" label="Adicionar Evento" pButton icon="fa ui-icon-add" (click)="showModalDialog()" ></button>
+                                <button type="button" label="Adicionar Evento" pButton icon="fa ui-icon-add"
+                                    (click)="showModalDialog()"></button>
                             </div>
                         </div>
 
@@ -22,17 +23,128 @@
         </form>
     </div>
 
+    <p-dialog header="Adiconar um Evento" [(visible)]="display" styleClass="ui-dialog-evento" [modal]="true"
+        [contentStyle]="{'overflow':'visible'}" [baseZIndex]="10000">
 
-    <p-dialog header="Godfather I" [(visible)]="display" [style]="{width: '50vw'}" [baseZIndex]="10000">
-        The story begins as Don Vito Corleone, the head of a New York Mafia family, oversees his daughter's wedding.
-        His beloved son Michael has just come home from the war, but does not intend to become part of his father's business.
-        Through Michael's life the nature of the family business becomes clear. The business of the family is just like the head of the family,
-        kind and benevolent to those who give respect, but given to ruthless violence whenever anything stands against the good of the family.
-    <p-footer>
-        <button type="button" pButton icon="pi pi-check" (click)="displayBasic=false" label="Yes"></button>
-        <button type="button" pButton icon="pi pi-times" (click)="displayBasic=false" label="No" class="ui-button-secondary"></button>
-    </p-footer>
+        <p-tabView>
+            <p-tabPanel header="Cadastro de Evento">
+                <div class="ui-g-12">
+                    <div class="ui-g form-group">
+                        <div class="ui-g-6 ui-md-6 p-offset-6">
+                            <h3 class="first">Titpo de Evnto:</h3>
+                            <p-selectButton [options]="opcoes" [(ngModel)]="selectedOpcao"></p-selectButton>
+                        </div>
 
-</p-dialog>
+                        <div class="ui-g-7 ui-md-7">
+                            <span class="md-inputfield">
+                                <input type="text" pInputText name="descEvento">
+                                <label>Nome Evento:</label>
+                            </span>
+                        </div>
+
+                        <div class="ui-g-7 ui-md-7">
+                            <span class="md-inputfield">
+                                <p-calendar [(ngModel)]="dataIniEvento" showTime="true" hourFormat="24"
+                                    [showIcon]="true" [style]="{'overflow':'visible'}">
+                                </p-calendar>
+                                <label>Data/Hora Inicio Evento</label>
+                            </span>
+                        </div>
+
+                        <div class="ui-g-7 ui-md-7">
+                            <span class="md-inputfield">
+                                <p-calendar [(ngModel)]="dataFimEvento" showTime="true" hourFormat="24"
+                                    [showIcon]="true">
+                                </p-calendar>
+                                <label>Data/Hora Fim Evento</label>
+                            </span>
+                        </div>
+
+                        <div class="ui-g-7 ui-md-7">
+                            <p-multiSelect defaultLabel="Selecione Professores" [options]="professores"
+                                [(ngModel)]="professoresSelecionados" [filter]="true" filterBy="label"></p-multiSelect>
+                        </div>
+
+                        <div class="ui-g-7 ui-md-7">
+                            <p-multiSelect defaultLabel="Selecione Alunos" [options]="alunos"
+                                [(ngModel)]="alunosSelecionados" [filter]="true" filterBy="label"></p-multiSelect>
+                        </div>
+
+
+                    </div>
+                </div>
+
+            </p-tabPanel>
+            <p-tabPanel header="Notificar Evento">
+                    <div class="ui-g form-group">
+
+                        <div class="ui-g-7 ui-md-7">
+                            <div class="ui-g-6 ui-md-6">
+                            <span class="md-inputfield">
+
+                                <p-calendar [(ngModel)]="dataIniEvento" showTime="true" hourFormat="24"
+                                    [showIcon]="true" [style]="{'overflow':'visible'}">
+                                </p-calendar>
+                               <label>Data/Hora Notificaçõa do Evento</label>
+                            </span>
+                            </div>
+                            <p-button icon="pi pi-check"></p-button>
+                        </div>
+                    </div>
+
+                        <p-table [value]="notificacoes">
+                            <ng-template pTemplate="caption">
+                                Data/Hora Notificação do Evento
+                            </ng-template>
+                            <ng-template pTemplate="header">
+                                <tr>
+                                    <th>Data Notificar</th>
+                                    <th style="width:5em; text-align: center">Excluir</th>
+                                </tr>
+                            </ng-template>
+                            <ng-template pTemplate="body" let-noti>
+                                <tr>
+                                    <td>{{noti.value}}</td>
+
+                                    <td style="width:5em; text-align: center">
+                                      <button pButton icon="fa ui-icon-delete" pTooltip="Excluir" tooltipPosition="top"></button>
+                                    </td>
+
+                                  </tr>
+                            </ng-template>
+                            <ng-template pTemplate="emptymessage">
+                                <tr>
+                                    <td colspan="2">
+                                        Nenhum Responsável Cadastrado
+                                    </td>
+                                </tr>
+                            </ng-template>
+
+                        </p-table>
+
+
+
+            </p-tabPanel>
+
+        </p-tabView>
+
+
+
+
+
+        <p-footer>
+            <div class="ui-g">
+                <div class="ui-g-7 ui-md-7">
+                    <p></p>
+                </div>
+            </div>
+            <hr>
+            <button type="button" pButton icon="pi pi-check" (click)="displayBasic=false" label="Confirmar"></button>
+            <button type="button" pButton icon="pi pi-times" (click)="displayBasic=false" label="Cancelar"
+                class="ui-button-secondary"></button>
+        </p-footer>
+    </p-dialog>
+
+
 
 </div>

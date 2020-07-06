@@ -8,11 +8,12 @@ import { CalendarioGeralComponent } from './calendario-geral/calendario-geral.co
 import { ButtonModule } from 'primeng/button';
 import {DialogModule} from 'primeng/dialog';
 import {SelectButtonModule} from 'primeng/selectbutton';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {CalendarModule} from 'primeng/calendar';
 import {MultiSelectModule} from 'primeng/multiselect';
 import {TabViewModule} from 'primeng/tabview';
 import {TableModule} from 'primeng/table';
+
 
 @NgModule({
   declarations: [CalendarioGeralComponent],
@@ -28,7 +29,8 @@ import {TableModule} from 'primeng/table';
     MultiSelectModule,
     InputTextModule,
     TabViewModule,
-    TableModule
+    TableModule,
+    ReactiveFormsModule
   ]
 })
 export class CalendarioModule { }

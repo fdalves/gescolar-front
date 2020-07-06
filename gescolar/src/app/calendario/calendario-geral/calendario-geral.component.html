@@ -32,19 +32,19 @@
                     <div class="ui-g form-group">
                         <div class="ui-g-6 ui-md-6 p-offset-6">
                             <h3 class="first">Titpo de Evnto:</h3>
-                            <p-selectButton [options]="opcoes" [(ngModel)]="selectedOpcao"></p-selectButton>
+                            <p-selectButton [options]="opcoes" [(ngModel)]="selectedOpcao" (onChange)="selectTipoEvento()" ></p-selectButton>
                         </div>
 
                         <div class="ui-g-7 ui-md-7">
                             <span class="md-inputfield">
-                                <input type="text" pInputText name="descEvento">
+                                <input type="text" pInputText name="descEvento" [required]="true">
                                 <label>Nome Evento:</label>
                             </span>
                         </div>
 
                         <div class="ui-g-7 ui-md-7">
                             <span class="md-inputfield">
-                                <p-calendar [(ngModel)]="dataIniEvento" showTime="true" hourFormat="24"
+                                <p-calendar [(ngModel)]="dataIniEvento" showTime="true" hourFormat="24" [required]="true"
                                     [showIcon]="true" [style]="{'overflow':'visible'}">
                                 </p-calendar>
                                 <label>Data/Hora Inicio Evento</label>
@@ -53,7 +53,7 @@
 
                         <div class="ui-g-7 ui-md-7">
                             <span class="md-inputfield">
-                                <p-calendar [(ngModel)]="dataFimEvento" showTime="true" hourFormat="24"
+                                <p-calendar [(ngModel)]="dataFimEvento" showTime="true" hourFormat="24" [required]="true"
                                     [showIcon]="true">
                                 </p-calendar>
                                 <label>Data/Hora Fim Evento</label>
@@ -61,13 +61,13 @@
                         </div>
 
                         <div class="ui-g-7 ui-md-7">
-                            <p-multiSelect defaultLabel="Selecione Professores" [options]="professores"
+                            <p-multiSelect defaultLabel="Selecione Professores" [options]="professores" [disabled]="disableSelect" [required]="!disableSelect"
                                 [(ngModel)]="professoresSelecionados" [filter]="true" filterBy="label"></p-multiSelect>
                         </div>
 
                         <div class="ui-g-7 ui-md-7">
-                            <p-multiSelect defaultLabel="Selecione Alunos" [options]="alunos"
-                                [(ngModel)]="alunosSelecionados" [filter]="true" filterBy="label"></p-multiSelect>
+                            <p-multiSelect defaultLabel="Selecione Turmas" [options]="turmas" [disabled]="disableSelect"  [required]="!disableSelect"
+                                [(ngModel)]="turmasSelecionados" [filter]="true" filterBy="label"></p-multiSelect>
                         </div>
 
 

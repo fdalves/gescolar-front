@@ -1,3 +1,6 @@
+import { ProfessorService } from './../../professores/professor.service';
+import { ErrorHandlerService } from './../../core/error-handler.service';
+import { TurmaService } from './../../turma/turma.service';
 import { SelectItem } from 'primeng/api';
 import { Component, OnInit } from '@angular/core';
 import dayGridPlugin from '@fullcalendar/daygrid';
@@ -20,14 +23,17 @@ export class CalendarioGeralComponent implements OnInit {
     selectedOpcao: any;
     dataIniEvento: Date;
     dataFimEvento: Date;
-    alunos: SelectItem[];
-    alunosSelecionados: SelectItem[];
+    turmas: SelectItem[];
+    turmasSelecionados: SelectItem[];
     professores: SelectItem[];
     professoresSelecionados: SelectItem[];
     notificacoes: any[];
     cols: any[];
+    disableSelect = true;
 
-    constructor() { }
+    constructor(private turmaService: TurmaService,
+                private professorService: ProfessorService,
+                private errorHandler: ErrorHandlerService) { }
 
     ngOnInit(): void {
         this.fullcalendarOptions = {
@@ -64,27 +70,42 @@ export class CalendarioGeralComponent implements OnInit {
         this.selectedOpcao = 'GERAL';
 
 
-        this.alunos = [
-            {label:'New York', value:{id:1, name: 'New York', code: 'NY'}},
-            {label:'Rome', value:{id:2, name: 'Rome', code: 'RM'}},
-            {label:'London', value:{id:3, name: 'London', code: 'LDN'}},
-            {label:'Istanbul', value:{id:4, name: 'Istanbul', code: 'IST'}},
-            {label:'Paris', value:{id:5, name: 'Paris', code: 'PRS'}}
-        ];
-
-        this.professores = [
-            {label:'New York', value:{id:1, name: 'New York', code: 'NY'}},
-            {label:'Rome', value:{id:2, name: 'Rome', code: 'RM'}},
-            {label:'London', value:{id:3, name: 'London', code: 'LDN'}},
-            {label:'Istanbul', value:{id:4, name: 'Istanbul', code: 'IST'}},
-            {label:'Paris', value:{id:5, name: 'Paris', code: 'PRS'}}
-        ];
-
-
+        this.carregarTurmas();
+        this.carregaProf();
     }
+
+
+    carregarTurmas() {
+        return this.turmaService.listarTodas()
+          .then(turmas => {
+            this.turmas = turmas
+              .map(t => ({ label: t.nome, value: t.codigo }));
+          })
+          .catch(erro => this.errorHandler.handle(erro));
+      }
+
+
+      carregaProf(): any {
+        return this.professorService.listarTodas()
+          .then(profs => {
+            this.professores = profs
+              .map(p => ({ label: p.nome, value: p.codigo }));
+          })
+          .catch(erro => this.errorHandler.handle(erro));
+      }
 
     showModalDialog() {
         this.display = true;
+    }
+
+    selectTipoEvento() {
+        if (this.selectedOpcao === 'SELECT') {
+            this.disableSelect = false;
+        } else {
+            this.disableSelect = true;
+            this.professoresSelecionados = null;
+            this.turmasSelecionados = null;
+        }
     }
 
 }

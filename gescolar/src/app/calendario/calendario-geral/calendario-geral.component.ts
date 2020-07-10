@@ -1,3 +1,4 @@
+import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
 import { ProfessorService } from './../../professores/professor.service';
 import { ErrorHandlerService } from './../../core/error-handler.service';
 import { TurmaService } from './../../turma/turma.service';
@@ -6,7 +7,7 @@ import { Component, OnInit } from '@angular/core';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import timeGridPlugin from '@fullcalendar/timegrid';
 import interactionPlugin from '@fullcalendar/interaction';
-import allLocales from '@fullcalendar/core/locales-all';
+
 
 
 @Component({
@@ -20,22 +21,22 @@ export class CalendarioGeralComponent implements OnInit {
     fullcalendarOptions: any;
     events: any[];
     opcoes: SelectItem[];
-    selectedOpcao: any;
-    dataIniEvento: Date;
-    dataFimEvento: Date;
     turmas: SelectItem[];
-    turmasSelecionados: SelectItem[];
     professores: SelectItem[];
-    professoresSelecionados: SelectItem[];
     notificacoes: any[];
     cols: any[];
     disableSelect = true;
+    formulario: FormGroup;
 
     constructor(private turmaService: TurmaService,
                 private professorService: ProfessorService,
+                private fb: FormBuilder,
                 private errorHandler: ErrorHandlerService) { }
 
     ngOnInit(): void {
+
+        this.configuraFormulario();
+        this.formulario.controls.selectedOpcao.setValue('GERAL');
         this.fullcalendarOptions = {
             locale: 'pt-br',
             plugins: [dayGridPlugin, timeGridPlugin, interactionPlugin],
@@ -67,12 +68,30 @@ export class CalendarioGeralComponent implements OnInit {
             {label:'Selecione Turma/Prof.', value: 'SELECT' }
         ];
 
-        this.selectedOpcao = 'GERAL';
+
 
 
         this.carregarTurmas();
         this.carregaProf();
     }
+
+
+    configuraFormulario() {
+        this.formulario = this.fb.group({
+          selectedOpcao: [],
+          descEvento: new FormControl('', Validators.compose([Validators.required])),
+          dataIniEvento: new FormControl('', Validators.compose([Validators.required])),
+          dataFimEvento: new FormControl('', Validators.compose([Validators.required])),
+          professoresSelecionados: [],
+          turmasSelecionados: [],
+        });
+      }
+
+
+      salvar() {
+        console.log('entrou..');
+        console.log(this.formulario.value);
+      }
 
 
     carregarTurmas() {
@@ -99,12 +118,12 @@ export class CalendarioGeralComponent implements OnInit {
     }
 
     selectTipoEvento() {
-        if (this.selectedOpcao === 'SELECT') {
+        if (this.formulario.controls.selectedOpcao.value === 'SELECT') {
             this.disableSelect = false;
         } else {
             this.disableSelect = true;
-            this.professoresSelecionados = null;
-            this.turmasSelecionados = null;
+            this.formulario.controls.professoresSelecionados.setValue(null);
+            this.formulario.controls.turmasSelecionados.setValue(null);
         }
     }
 

@@ -4,148 +4,156 @@
     </div>
     <div class="ui-g">
 
-            <div class="ui-g-12">
-                <div class="card card-w-title">
-                    <div class="ui-g form-group">
-                        <div class="ui-g-12 ui-md-4">
-                            <div class="shadow-box ui-shadow-3">
-                                <button type="button" label="Adicionar Evento" pButton icon="fa ui-icon-add"
-                                    (click)="showModalDialog()"></button>
-                            </div>
+        <div class="ui-g-12">
+            <div class="card card-w-title">
+                <div class="ui-g form-group">
+                    <div class="ui-g-12 ui-md-4">
+                        <div class="shadow-box ui-shadow-3">
+                            <button type="button" label="Adicionar Evento" pButton icon="fa ui-icon-add"
+                                (click)="showModalDialog()"></button>
                         </div>
+                    </div>
 
-                        <div class="ui-g-12">
-                            <p-fullCalendar [events]="events" [options]="fullcalendarOptions"></p-fullCalendar>
-                        </div>
+                    <div class="ui-g-12">
+                        <p-fullCalendar [events]="events" [options]="fullcalendarOptions"></p-fullCalendar>
                     </div>
                 </div>
             </div>
+        </div>
 
     </div>
 
     <p-dialog header="Adiconar um Evento" [(visible)]="display" styleClass="ui-dialog-evento" [modal]="true"
         [contentStyle]="{'overflow':'visible'}" [baseZIndex]="10000">
         <form [formGroup]="formulario" (ngSubmit)="salvar()" autocomplete="off">
-        <p-tabView>
-            <p-tabPanel header="Cadastro de Evento">
-                <div class="ui-g-12">
-                    <div class="ui-g form-group">
-                        <div class="ui-g-6 ui-md-6 p-offset-6">
-                            <h3 class="first">Titpo de Evnto:</h3>
-                            <p-selectButton [options]="opcoes" formControlName="selectedOpcao" name="selectedOpcao" (onChange)="selectTipoEvento()" ></p-selectButton>
+            <p-tabView>
+                <p-tabPanel header="Cadastro de Evento">
+                    <div class="ui-g-12">
+                        <div class="ui-g form-group">
+                            <div class="ui-g-6 ui-md-6 p-offset-6">
+                                <h3 class="first">Titpo de Evnto:</h3>
+                                <p-selectButton [options]="opcoes" formControlName="selectedOpcao" name="selectedOpcao"
+                                    (onChange)="selectTipoEvento()"></p-selectButton>
+                            </div>
+
+                            <div class="ui-g-7 ui-md-7">
+                                <span class="md-inputfield">
+                                    <input type="text" pInputText name="descEvento" [required]="true"
+                                        formControlName="descEvento" name="descEvento">
+                                    <label>Nome Evento:</label>
+                                </span>
+                            </div>
+
+                            <div class="ui-g-7 ui-md-7">
+                                <span class="md-inputfield">
+                                    <p-calendar showTime="true" hourFormat="24" [required]="true"
+                                        formControlName="dataIniEvento" name="dataIniEvento" [showIcon]="true"
+                                        [style]="{'overflow':'visible'}">
+                                    </p-calendar>
+                                    <label>Data/Hora Inicio Evento</label>
+                                </span>
+                            </div>
+
+                            <div class="ui-g-7 ui-md-7">
+                                <span class="md-inputfield">
+                                    <p-calendar showTime="true" hourFormat="24" [required]="true"
+                                        formControlName="dataFimEvento" name="dataFimEvento" [showIcon]="true">
+                                    </p-calendar>
+                                    <label>Data/Hora Fim Evento</label>
+                                </span>
+                            </div>
+
+                            <div class="ui-g-7 ui-md-7">
+                                <p-multiSelect defaultLabel="Selecione Professores" [options]="professores"
+                                    formControlName="professoresSelecionados" name="professoresSelecionados"
+                                    [filter]="true" filterBy="label"></p-multiSelect>
+                            </div>
+
+                            <div class="ui-g-7 ui-md-7">
+                                <p-multiSelect defaultLabel="Selecione Turmas" [options]="turmas" [filter]="true"
+                                    filterBy="label" formControlName="turmasSelecionados" name="turmasSelecionados">
+                                </p-multiSelect>
+                            </div>
+
+
                         </div>
-
-                        <div class="ui-g-7 ui-md-7">
-                            <span class="md-inputfield">
-                                <input type="text" pInputText name="descEvento" [required]="true" formControlName="descEvento" name="descEvento">
-                                <label>Nome Evento:</label>
-                            </span>
-                        </div>
-
-                        <div class="ui-g-7 ui-md-7">
-                            <span class="md-inputfield">
-                                <p-calendar  showTime="true" hourFormat="24" [required]="true" formControlName="dataIniEvento" name="dataIniEvento"
-                                    [showIcon]="true" [style]="{'overflow':'visible'}">
-                                </p-calendar>
-                                <label>Data/Hora Inicio Evento</label>
-                            </span>
-                        </div>
-
-                        <div class="ui-g-7 ui-md-7">
-                            <span class="md-inputfield">
-                                <p-calendar  showTime="true" hourFormat="24" [required]="true" formControlName="dataFimEvento" name="dataFimEvento"
-                                    [showIcon]="true">
-                                </p-calendar>
-                                <label>Data/Hora Fim Evento</label>
-                            </span>
-                        </div>
-
-                        <div class="ui-g-7 ui-md-7">
-                            <p-multiSelect defaultLabel="Selecione Professores" [options]="professores"  formControlName="professoresSelecionados" name="professoresSelecionados"
-                               [filter]="true" filterBy="label"></p-multiSelect>
-                        </div>
-
-                        <div class="ui-g-7 ui-md-7">
-                            <p-multiSelect defaultLabel="Selecione Turmas" [options]="turmas"
-                            [filter]="true" filterBy="label" formControlName="turmasSelecionados" name="turmasSelecionados"></p-multiSelect>
-                        </div>
-
-
                     </div>
-                </div>
 
-            </p-tabPanel>
-            <p-tabPanel header="Notificar Evento">
+                </p-tabPanel>
+                <p-tabPanel header="Notificar Evento">
                     <div class="ui-g form-group">
 
                         <div class="ui-g-7 ui-md-7">
                             <div class="ui-g-6 ui-md-6">
-                            <span class="md-inputfield">
+                                <span class="md-inputfield">
 
-                                <p-calendar  showTime="true" hourFormat="24"
-                                    [showIcon]="true" [style]="{'overflow':'visible'}">
-                                </p-calendar>
-                               <label>Data/Hora Notificaçõa do Evento</label>
-                            </span>
+                                    <p-calendar showTime="true" hourFormat="24" [showIcon]="true"  [locale]="pt" formControlName="dataInclude" name="dataInclude"
+                                        [style]="{'overflow':'visible'}">
+                                    </p-calendar>
+                                    <label>Data/Hora Notificaçõa do Evento</label>
+                                </span>
                             </div>
-                            <p-button icon="pi pi-check"></p-button>
+                            <p-button icon="pi pi-check" type="button" (click)="addData()"></p-button>
                         </div>
                     </div>
 
-                        <p-table [value]="notificacoes">
-                            <ng-template pTemplate="caption">
-                                Data/Hora Notificação do Evento
-                            </ng-template>
-                            <ng-template pTemplate="header">
-                                <tr>
-                                    <th>Data Notificar</th>
-                                    <th style="width:5em; text-align: center">Excluir</th>
-                                </tr>
-                            </ng-template>
-                            <ng-template pTemplate="body" let-noti>
-                                <tr>
-                                    <td>{{noti.value}}</td>
+                    <p-table [value]="notificacoes">
+                        <ng-template pTemplate="caption">
+                            Data/Hora Notificação do Evento
+                        </ng-template>
+                        <ng-template pTemplate="header">
+                            <tr>
+                                <th>Data Notificar</th>
+                                <th style="width:5em; text-align: center">Excluir</th>
+                            </tr>
+                        </ng-template>
+                        <ng-template pTemplate="body" let-noti>
+                            <tr>
+                                <td> {{ noti.value | date:'medium' }} </td>
 
-                                    <td style="width:5em; text-align: center">
-                                      <button pButton icon="fa ui-icon-delete" pTooltip="Excluir" tooltipPosition="top"></button>
-                                    </td>
+                                <td style="width:5em; text-align: center">
+                                    <button pButton icon="fa ui-icon-delete" pTooltip="Excluir"
+                                        tooltipPosition="top"></button>
+                                </td>
 
-                                  </tr>
-                            </ng-template>
-                            <ng-template pTemplate="emptymessage">
-                                <tr>
-                                    <td colspan="2">
-                                        Nenhum Responsável Cadastrado
-                                    </td>
-                                </tr>
-                            </ng-template>
+                            </tr>
+                        </ng-template>
+                        <ng-template pTemplate="emptymessage">
+                            <tr>
+                                <td colspan="2">
+                                    Nenhum Responsável Cadastrado
+                                </td>
+                            </tr>
+                        </ng-template>
 
-                        </p-table>
-
-
-
-            </p-tabPanel>
-
-        </p-tabView>
+                    </p-table>
 
 
 
+                </p-tabPanel>
+
+            </p-tabView>
 
 
-        <p-footer>
-            <div class="ui-g">
-                <div class="ui-g-7 ui-md-7">
-                    <p></p>
+            <p-footer>
+
+                <div class="ui-g-12">
+                    <div class="ui-g form-group">
+                        <div class="ui-g-12 ui-md-4 ">
+                            <button pButton type="submit" label="Salvar" [disabled]="formulario.invalid"
+                                icon="fa ui-icon-save"></button>
+                        </div>
+                        <div class="ui-g-12 ui-md-3">
+                            <button type="button" pButton icon="pi pi-times" (click)="displayBasic=false"
+                                label="Cancelar" class="ui-button-secondary"></button>
+                        </div>
+
+                    </div>
                 </div>
-            </div>
-            <hr>
-            <button pButton type="submit"  icon="pi pi-check" [disabled]="formulario.invalid"  label="Confirmar"></button>
 
-            <button type="button" pButton icon="pi pi-times" (click)="displayBasic=false" label="Cancelar"
-                class="ui-button-secondary"></button>
-        </p-footer>
+            </p-footer>
 
-    </form>
+        </form>
     </p-dialog>
 
 

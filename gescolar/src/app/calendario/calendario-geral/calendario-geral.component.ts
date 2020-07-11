@@ -23,10 +23,11 @@ export class CalendarioGeralComponent implements OnInit {
     opcoes: SelectItem[];
     turmas: SelectItem[];
     professores: SelectItem[];
-    notificacoes: any[];
+    notificacoes: Array<any> = [];
     cols: any[];
     disableSelect = true;
     formulario: FormGroup;
+    pt: any;
 
     constructor(private turmaService: TurmaService,
                 private professorService: ProfessorService,
@@ -69,7 +70,17 @@ export class CalendarioGeralComponent implements OnInit {
         ];
 
 
-
+        this.pt = {
+            firstDayOfWeek: 0,
+            dayNames: ['Domingo', 'Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado'],
+            dayNamesShort: ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sab'],
+            dayNamesMin: ['Do', 'Se', 'Te', 'Qu', 'Qu', 'Se', 'Sa'],
+            monthNames: ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho',
+              'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'],
+            monthNamesShort: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'],
+            today: 'Hoje',
+            clear: 'Limpar'
+          };
 
         this.carregarTurmas();
         this.carregaProf();
@@ -84,12 +95,20 @@ export class CalendarioGeralComponent implements OnInit {
           dataFimEvento: new FormControl('', Validators.compose([Validators.required])),
           professoresSelecionados: [],
           turmasSelecionados: [],
+          dataInclude: [],
+          datasNotificar: []
         });
       }
 
 
+      addData() {
+        this.notificacoes.push({value: this.formulario.controls.dataInclude.value});
+        this.formulario.controls.dataInclude.setValue(null);
+      }
+
       salvar() {
         console.log('entrou..');
+        this.formulario.controls.datasNotificar.setValue(this.notificacoes);
         console.log(this.formulario.value);
       }
 

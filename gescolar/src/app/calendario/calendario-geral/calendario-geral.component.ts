@@ -7,6 +7,7 @@ import { Component, OnInit } from '@angular/core';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import timeGridPlugin from '@fullcalendar/timegrid';
 import interactionPlugin from '@fullcalendar/interaction';
+import { GrowMessageService } from 'src/app/shared/grow-message.service';
 
 
 
@@ -25,19 +26,21 @@ export class CalendarioGeralComponent implements OnInit {
     professores: SelectItem[];
     notificacoes: Array<any> = [];
     cols: any[];
-    disableSelect = true;
+
     formulario: FormGroup;
     pt: any;
 
     constructor(private turmaService: TurmaService,
                 private professorService: ProfessorService,
                 private fb: FormBuilder,
-                private errorHandler: ErrorHandlerService) { }
+                private errorHandler: ErrorHandlerService,
+                private messageService: GrowMessageService) { }
 
     ngOnInit(): void {
 
         this.configuraFormulario();
         this.formulario.controls.selectedOpcao.setValue('GERAL');
+        this.selectTipoEvento();
         this.fullcalendarOptions = {
             locale: 'pt-br',
             plugins: [dayGridPlugin, timeGridPlugin, interactionPlugin],
@@ -102,8 +105,22 @@ export class CalendarioGeralComponent implements OnInit {
 
 
       addData() {
+        if (this.formulario.controls.dataIniEvento.value === '' || this.formulario.controls.dataFimEvento.value === '') {
+            this.messageService.addErro("Os campos  Dt. Inicio Evento e Dt. Fim Evento são obrigatórios.");
+            return;
+        }
+
         this.notificacoes.push({value: this.formulario.controls.dataInclude.value});
         this.formulario.controls.dataInclude.setValue(null);
+      }
+
+      excluiData(noti: any) {
+        const index = this.notificacoes.indexOf(noti, 0);
+        if (index > -1) {
+            this.notificacoes.splice(index, 1);
+        }
+
+
       }
 
       salvar() {
@@ -138,9 +155,11 @@ export class CalendarioGeralComponent implements OnInit {
 
     selectTipoEvento() {
         if (this.formulario.controls.selectedOpcao.value === 'SELECT') {
-            this.disableSelect = false;
+            this.formulario.controls.professoresSelecionados.enable();
+            this.formulario.controls.turmasSelecionados.enable();
         } else {
-            this.disableSelect = true;
+            this.formulario.controls.professoresSelecionados.disable();
+            this.formulario.controls.turmasSelecionados.disable();
             this.formulario.controls.professoresSelecionados.setValue(null);
             this.formulario.controls.turmasSelecionados.setValue(null);
         }

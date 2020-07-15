@@ -1,3 +1,4 @@
+import { CalendarioService } from './../calendario.service';
 import { DateValidators } from './../../shared/validators/date-validators';
 import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
 import { ProfessorService } from './../../professores/professor.service';
@@ -35,7 +36,8 @@ export class CalendarioGeralComponent implements OnInit {
                 private professorService: ProfessorService,
                 private fb: FormBuilder,
                 private errorHandler: ErrorHandlerService,
-                private messageService: GrowMessageService) { }
+                private messageService: GrowMessageService,
+                private calendarioService: CalendarioService) { }
 
     ngOnInit(): void {
 
@@ -69,8 +71,8 @@ export class CalendarioGeralComponent implements OnInit {
 
 
         this.opcoes = [
-            {label:'Geral', value: 'GERAL'},
-            {label:'Selecione Turma/Prof.', value: 'SELECT' }
+            { label: 'Geral', value: 'GERAL' },
+            { label: 'Selecione Turma/Prof.', value: 'SELECT' }
         ];
 
 
@@ -80,11 +82,11 @@ export class CalendarioGeralComponent implements OnInit {
             dayNamesShort: ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sab'],
             dayNamesMin: ['Do', 'Se', 'Te', 'Qu', 'Qu', 'Se', 'Sa'],
             monthNames: ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho',
-              'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'],
+                'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'],
             monthNamesShort: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'],
             today: 'Hoje',
             clear: 'Limpar'
-          };
+        };
 
         this.carregarTurmas();
         this.carregaProf();
@@ -93,81 +95,96 @@ export class CalendarioGeralComponent implements OnInit {
 
     configuraFormulario() {
         this.formulario = this.fb.group({
-          selectedOpcao: [],
-          descEvento: new FormControl('', Validators.compose([Validators.required])),
-          dataIniEvento: new FormControl('', Validators.compose([Validators.required])),
-          dataFimEvento: new FormControl('', Validators.compose([Validators.required])),
-          professoresSelecionados: [],
-          turmasSelecionados: [],
-          dataInclude: [],
-          datasNotificar: []
-        }, { validator: Validators.compose([
-            DateValidators.dateLessThan('dataIniEvento', 'dataFimEvento', { 'dataFimEvento': true })
+            selectedOpcao: [],
+            descEvento: new FormControl('', Validators.compose([Validators.required])),
+            dataIniEvento: new FormControl('', Validators.compose([Validators.required])),
+            dataFimEvento: new FormControl('', Validators.compose([Validators.required])),
+            professoresSelecionados: [],
+            turmasSelecionados: [],
+            dataInclude: [],
+            datasNotificar: []
+        }, {
+            validator: Validators.compose([
+                DateValidators.dateLessThan('dataIniEvento', 'dataFimEvento', { 'dataFimEvento': true })
 
-        ])});
-      }
-
-
-
-
+            ])
+        });
+    }
 
 
-      addData() {
+
+
+
+
+    addData() {
         if (this.formulario.controls.dataIniEvento.value === '' || this.formulario.controls.dataFimEvento.value === '') {
             this.messageService.addErro("Os campos  dt. inicio evento e data fim evento são obrigatórios.");
             return;
         }
 
-        if (this.formulario.controls.dataInclude.value >  this.formulario.controls.dataFimEvento.value ) {
-            this.messageService.addErro("A data informada de ser menor que  data fim evento. ");
+        if (this.formulario.controls.dataInclude.value > this.formulario.controls.dataFimEvento.value) {
+            this.messageService.addErro("A data informada deve ser menor que data fim evento. ");
             return;
         }
 
         const dateTime = new Date();
 
-        if (dateTime > this.formulario.controls.dataInclude.value ) {
-            this.messageService.addErro("A data informada de ser menor que  data atual. ");
+        if (dateTime > this.formulario.controls.dataInclude.value) {
+            this.messageService.addErro("A data informada deve ser maior que data atual. ");
             return;
         }
 
-        this.notificacoes.push({value: this.formulario.controls.dataInclude.value});
+        this.notificacoes.push({ value: this.formulario.controls.dataInclude.value });
         this.formulario.controls.dataInclude.setValue(null);
-      }
+    }
 
-      excluiData(noti: any) {
+    excluiData(noti: any) {
         const index = this.notificacoes.indexOf(noti, 0);
         if (index > -1) {
             this.notificacoes.splice(index, 1);
         }
 
 
-      }
+    }
 
-      salvar() {
-        console.log('entrou..');
-        this.formulario.controls.datasNotificar.setValue(this.notificacoes);
+    salvar() {
         console.log(this.formulario.value);
-      }
 
+        let arraydatas: any[] = new Array();
+        for (let x of this.notificacoes) {
+            arraydatas.push(x.value);
+        }
+
+        this.formulario.controls.datasNotificar.setValue(arraydatas);
+        this.adicionarEvento();
+        this.display = false;
+    }
+
+    adicionarEvento() {
+        this.calendarioService.adicionar(this.formulario.value)
+            .then(calendario => {
+                this.messageService.addSucesso('Evento adicionado com sucesso!');
+            }).catch(erro => this.errorHandler.handle(erro));
+    }
 
     carregarTurmas() {
         return this.turmaService.listarTodas()
-          .then(turmas => {
-            this.turmas = turmas
-              .map(t => ({ label: t.nome, value: t.codigo }));
-          })
-          .catch(erro => this.errorHandler.handle(erro));
-      }
+            .then(turmas => {
+                this.turmas = turmas
+                    .map(t => ({ label: t.nome, value: t.codigo }));
+            })
+            .catch(erro => this.errorHandler.handle(erro));
+    }
 
 
-      carregaProf(): any {
+    carregaProf(): any {
         return this.professorService.listarTodas()
-          .then(profs => {
-            this.professores = profs
-              .map(p => ({ label: p.nome, value: p.codigo }));
-          })
-          .catch(erro => this.errorHandler.handle(erro));
-      }
+            .then(profs => {
+                this.professores = profs
+                    .map(p => ({ label: p.nome, value: p.codigo }));
+            })
+            .catch(erro => this.errorHandler.handle(erro));
+    }
 
     showModalDialog() {
         this.display = true;

@@ -1,3 +1,4 @@
+import { CalendarioService } from './calendario.service';
 import { InputTextModule } from 'primeng/inputtext';
 import { FullCalendarModule } from 'primeng/fullcalendar';
 import { CalendarioRoutingModule } from './calendario-routing.module';
@@ -30,7 +31,8 @@ import {TableModule} from 'primeng/table';
     InputTextModule,
     TabViewModule,
     TableModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+
   ]
 })
 export class CalendarioModule { }

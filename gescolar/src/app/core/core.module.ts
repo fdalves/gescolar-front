@@ -1,3 +1,4 @@
+import { CalendarioService } from './../calendario/calendario.service';
 import { ChamadaService } from './../chamada/chamada.service';
 import { TurmaService } from './../turma/turma.service';
 import { AlunosService } from './../alunos/alunos.service';
@@ -57,7 +58,7 @@ import { ResponsavelService } from '../alunos/responsavel.service';
     JwtHelperService,
     Title,
     TurmaService,
-
+    CalendarioService,
     { provide: LOCALE_ID, useValue: 'pt-BR' }
   ]
 })

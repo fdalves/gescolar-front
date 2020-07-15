@@ -1,3 +1,4 @@
+import { DateValidators } from './../../shared/validators/date-validators';
 import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
 import { ProfessorService } from './../../professores/professor.service';
 import { ErrorHandlerService } from './../../core/error-handler.service';
@@ -100,13 +101,32 @@ export class CalendarioGeralComponent implements OnInit {
           turmasSelecionados: [],
           dataInclude: [],
           datasNotificar: []
-        });
+        }, { validator: Validators.compose([
+            DateValidators.dateLessThan('dataIniEvento', 'dataFimEvento', { 'dataFimEvento': true })
+
+        ])});
       }
+
+
+
+
 
 
       addData() {
         if (this.formulario.controls.dataIniEvento.value === '' || this.formulario.controls.dataFimEvento.value === '') {
-            this.messageService.addErro("Os campos  Dt. Inicio Evento e Dt. Fim Evento são obrigatórios.");
+            this.messageService.addErro("Os campos  dt. inicio evento e data fim evento são obrigatórios.");
+            return;
+        }
+
+        if (this.formulario.controls.dataInclude.value >  this.formulario.controls.dataFimEvento.value ) {
+            this.messageService.addErro("A data informada de ser menor que  data fim evento. ");
+            return;
+        }
+
+        const dateTime = new Date();
+
+        if (dateTime > this.formulario.controls.dataInclude.value ) {
+            this.messageService.addErro("A data informada de ser menor que  data atual. ");
             return;
         }
 
@@ -166,3 +186,5 @@ export class CalendarioGeralComponent implements OnInit {
     }
 
 }
+
+

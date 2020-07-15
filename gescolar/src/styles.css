@@ -1,16 +1,15 @@
 /* You can add global styles to this file, and also import other style files */
 .layout-wrapper .layout-main .layout-topbar .topbar-logo {
   display: none;
-z-index: 999999999999;
 }
 
  :host ::ng-deep button {
     margin-right: .25em;
     min-width: 8em;
-    z-index: 999999999999;
 }
 
 :host ::ng-deep .ui-message {
     margin-left: .25em;
-    z-index: 999999999999;
 }
+
+

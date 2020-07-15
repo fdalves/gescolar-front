@@ -52,6 +52,7 @@
                                     </p-calendar>
                                     <label>Data/Hora Inicio Evento</label>
                                 </span>
+
                             </div>
 
                             <div class="ui-g-7 ui-md-7">
@@ -59,8 +60,14 @@
                                     <p-calendar showTime="true" hourFormat="24" [required]="true"
                                         formControlName="dataFimEvento" name="dataFimEvento" [showIcon]="true">
                                     </p-calendar>
+
+                                    <div class="ui-message ui-messages-error ui-corner-all" *ngIf="formulario.controls['dataFimEvento'].dirty">
+                                        <span *ngIf="formulario.hasError('dataFimEvento')">Data fim de ser maior que data de inicio.</span>
+                                      </div>
+
                                     <label>Data/Hora Fim Evento</label>
                                 </span>
+
                             </div>
 
                             <div class="ui-g-7 ui-md-7">

@@ -1,3 +1,4 @@
+import { AuthService } from './../../seguranca/auth.service';
 import { CalendarioService } from './../calendario.service';
 import { DateValidators } from './../../shared/validators/date-validators';
 import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
@@ -37,7 +38,8 @@ export class CalendarioGeralComponent implements OnInit {
                 private fb: FormBuilder,
                 private errorHandler: ErrorHandlerService,
                 private messageService: GrowMessageService,
-                private calendarioService: CalendarioService) { }
+                private calendarioService: CalendarioService,
+                private authService: AuthService) { }
 
     ngOnInit(): void {
 
@@ -102,7 +104,10 @@ export class CalendarioGeralComponent implements OnInit {
             professoresSelecionados: [],
             turmasSelecionados: [],
             dataInclude: [],
-            datasNotificar: []
+            datasNotificar: [],
+            dataIni: [],
+            dataFim: [],
+            codigoUsuario: []
         }, {
             validator: Validators.compose([
                 DateValidators.dateLessThan('dataIniEvento', 'dataFimEvento', { 'dataFimEvento': true })
@@ -147,8 +152,28 @@ export class CalendarioGeralComponent implements OnInit {
 
     }
 
+
+    parseDate(date: any){
+        const day = this.addZero(date.getDate());
+        const month = this.addZero(date.getMonth() + 1); // add 1 because months are indexed from 0
+        const year = date.getFullYear();
+        const hours = this.addZero(date.getHours());
+        const  minute  = this.addZero(date.getMinutes());
+        const result = day + '/' + month + '/' + year + ' ' + hours + ':' + minute;
+        return result;
+    }
+
+     addZero(i) {
+        if (i < 10) {
+          i = "0" + i;
+        }
+        return i;
+      }
+
     salvar() {
-        console.log(this.formulario.value);
+        this.formulario.controls.dataIni.setValue(this.parseDate(this.formulario.controls.dataIniEvento.value));
+        this.formulario.controls.dataFim.setValue(this.parseDate(this.formulario.controls.dataFimEvento.value));
+        this.formulario.controls.codigoUsuario.setValue(this.authService.jwtPayload.codigoUsuario);
 
         let arraydatas: any[] = new Array();
         for (let x of this.notificacoes) {
@@ -161,6 +186,7 @@ export class CalendarioGeralComponent implements OnInit {
     }
 
     adicionarEvento() {
+        console.log(this.formulario.value);
         this.calendarioService.adicionar(this.formulario.value)
             .then(calendario => {
                 this.messageService.addSucesso('Evento adicionado com sucesso!');

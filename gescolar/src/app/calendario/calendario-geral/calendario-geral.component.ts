@@ -177,7 +177,7 @@ export class CalendarioGeralComponent implements OnInit {
 
         let arraydatas: any[] = new Array();
         for (let x of this.notificacoes) {
-            arraydatas.push(x.value);
+            arraydatas.push(this.parseDate(x.value));
         }
 
         this.formulario.controls.datasNotificar.setValue(arraydatas);

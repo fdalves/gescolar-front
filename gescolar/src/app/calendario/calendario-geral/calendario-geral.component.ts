@@ -74,7 +74,7 @@ export class CalendarioGeralComponent implements OnInit {
 
         this.opcoes = [
             { label: 'Geral', value: 'GERAL' },
-            { label: 'Selecione Turma/Prof.', value: 'SELECT' }
+            { label: 'Selecione Turma/Prof.', value: 'ESPECIFICA' }
         ];
 
 
@@ -217,7 +217,7 @@ export class CalendarioGeralComponent implements OnInit {
     }
 
     selectTipoEvento() {
-        if (this.formulario.controls.selectedOpcao.value === 'SELECT') {
+        if (this.formulario.controls.selectedOpcao.value === 'ESPECIFICA') {
             this.formulario.controls.professoresSelecionados.enable();
             this.formulario.controls.turmasSelecionados.enable();
         } else {

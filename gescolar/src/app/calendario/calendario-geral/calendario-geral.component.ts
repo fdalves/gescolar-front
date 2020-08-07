@@ -11,6 +11,7 @@ import dayGridPlugin from '@fullcalendar/daygrid';
 import timeGridPlugin from '@fullcalendar/timegrid';
 import interactionPlugin from '@fullcalendar/interaction';
 import { GrowMessageService } from 'src/app/shared/grow-message.service';
+import { templateJitUrl } from '@angular/compiler';
 
 
 
@@ -29,6 +30,8 @@ export class CalendarioGeralComponent implements OnInit {
     professores: SelectItem[];
     notificacoes: Array<any> = [];
     cols: any[];
+    turmasFiltro: any[];
+    professoresFiltro: any[];
 
     formulario: FormGroup;
     pt: any;
@@ -92,6 +95,7 @@ export class CalendarioGeralComponent implements OnInit {
 
         this.carregarTurmas();
         this.carregaProf();
+        this.carregarEvento();
     }
 
 
@@ -185,8 +189,18 @@ export class CalendarioGeralComponent implements OnInit {
         this.display = false;
     }
 
+    carregarEvento() {
+        this.calendarioService.carregarEventos(this.turmasFiltro,this.professoresFiltro)
+            .then(eventos => {
+                this.events = eventos;
+                console.log(this.events);
+                this.messageService.addSucesso('carregou...');
+            }).catch(erro => this.errorHandler.handle(erro));
+    }
+
+
     adicionarEvento() {
-        console.log(this.formulario.value);
+
         this.calendarioService.adicionar(this.formulario.value)
             .then(calendario => {
                 this.messageService.addSucesso('Evento adicionado com sucesso!');

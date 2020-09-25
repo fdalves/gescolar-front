@@ -7,11 +7,23 @@
         <div class="ui-g-12">
             <div class="card card-w-title">
                 <div class="ui-g form-group">
-                    <div class="ui-g-12 ui-md-4">
+                    <div class="ui-g-12 ui-md-12">
                         <div class="shadow-box ui-shadow-3">
                             <button type="button" label="Adicionar Evento" pButton icon="fa ui-icon-add"
                                 (click)="showModalDialog()"></button>
                         </div>
+                    </div>
+
+                    <div class="ui-g-12 ui-md-6">
+                        <p-multiSelect defaultLabel="Selecione Professores" [options]="professores" [(ngModel)]="professoresFiltro" (onChange)="selectProfessor()"
+                             name="professoresFiltro"
+                            [filter]="true" filterBy="label"></p-multiSelect>
+                    </div>
+
+                    <div class="ui-g-12 ui-md-6">
+                        <p-multiSelect defaultLabel="Selecione Turmas" [options]="turmas" [filter]="true" (onChange)="selectTurma()"
+                            filterBy="label" [(ngModel)]="turmasFiltro">
+                        </p-multiSelect>
                     </div>
 
                     <div class="ui-g-12">
@@ -24,7 +36,7 @@
     </div>
 
     <p-dialog header="Adiconar um Evento" [(visible)]="display" styleClass="ui-dialog-evento" [modal]="true"
-        [contentStyle]="{'overflow':'visible'}" [baseZIndex]="10000">
+        [contentStyle]="{'overflow':'visible'}" [baseZIndex]="999999999999"  >
         <form [formGroup]="formulario" (ngSubmit)="salvar()" autocomplete="off">
             <p-tabView>
                 <p-tabPanel header="Cadastro de Evento">
@@ -90,8 +102,8 @@
                 <p-tabPanel header="Notificar Evento">
                     <div class="ui-g form-group">
 
-                        <div class="ui-g-7 ui-md-7">
-                            <div class="ui-g-6 ui-md-6">
+                        <div class="ui-g-12 ui-md-10">
+                            <div class="ui-g-10 ui-md-10">
                                 <span class="md-inputfield">
 
                                     <p-calendar showTime="true" hourFormat="24" [showIcon]="true"  [locale]="pt" formControlName="dataInclude" name="dataInclude"

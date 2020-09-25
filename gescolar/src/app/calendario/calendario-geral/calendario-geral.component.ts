@@ -121,8 +121,21 @@ export class CalendarioGeralComponent implements OnInit {
     }
 
 
+    selectProfessor() {
+        this.calendarioService.carregarEventos(this.turmasFiltro, this.professoresFiltro)
+        .then(eventos => {
+            this.events = eventos;
+            console.log(this.events);
+        }).catch(erro => this.errorHandler.handle(erro));
+    }
 
-
+    selectTurma() {
+         this.calendarioService.carregarEventos(this.turmasFiltro, this.professoresFiltro)
+        .then(eventos => {
+            this.events = eventos;
+            console.log(this.events);
+        }).catch(erro => this.errorHandler.handle(erro));
+    }
 
 
     addData() {
@@ -194,7 +207,6 @@ export class CalendarioGeralComponent implements OnInit {
             .then(eventos => {
                 this.events = eventos;
                 console.log(this.events);
-                this.messageService.addSucesso('carregou...');
             }).catch(erro => this.errorHandler.handle(erro));
     }
 

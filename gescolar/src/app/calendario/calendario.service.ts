@@ -13,10 +13,7 @@ export class CalendarioFiltro {
 
 @Injectable()
 export class CalendarioService {
-
     calendarioUrl: string;
-
-
 
     constructor(private http: GescolarHttp) {
         this.calendarioUrl = `${environment.apiUrl}/calendario`;
@@ -34,5 +31,16 @@ export class CalendarioService {
             .toPromise()
             .then(response => response);
     }
+
+    loadEvento(id: any) {
+        return this.http.get<any>(`${this.calendarioUrl}/carregaEvento/${id}`)
+        .toPromise()
+        .then(response => response);
+    }
+
+
+
+
+
 
 }

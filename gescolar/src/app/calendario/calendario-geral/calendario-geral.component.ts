@@ -63,7 +63,18 @@ export class CalendarioGeralComponent implements OnInit {
                 left: 'prev,next, today',
                 center: 'title',
                 right: 'dayGridMonth,timeGridWeek,timeGridDay'
-            }
+            },
+
+            eventClick: (e) =>  {
+                const id = e.event.id;
+                this.calendarioService.loadEvento(id)
+                .then(evento => {
+                    console.log(evento);
+                }).catch(erro => this.errorHandler.handle(erro));
+            },
+
+            editable: true
+
         };
 
 

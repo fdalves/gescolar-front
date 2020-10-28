@@ -35,7 +35,7 @@
 
     </div>
 
-    <p-dialog header="Adiconar um Evento" [(visible)]="display" styleClass="ui-dialog-evento" [modal]="true"
+    <p-dialog header="Evento" [(visible)]="display" styleClass="ui-dialog-evento" [modal]="true" (onHide)="cancela()"
         [contentStyle]="{'overflow':'visible'}" [baseZIndex]="999999999999"  >
         <form [formGroup]="formulario" (ngSubmit)="salvar()" autocomplete="off">
             <p-tabView>
@@ -44,13 +44,13 @@
                         <div class="ui-g form-group">
                             <div class="ui-g-6 ui-md-6 p-offset-6">
                                 <h3 class="first">Titpo de Evnto:</h3>
-                                <p-selectButton [options]="opcoes" formControlName="selectedOpcao" name="selectedOpcao"
+                                <p-selectButton [options]="opcoes" formControlName="selectedOpcao" name="selectedOpcao" [disabled]="edit"
                                     (onChange)="selectTipoEvento()"></p-selectButton>
                             </div>
 
                             <div class="ui-g-7 ui-md-7">
                                 <span class="md-inputfield">
-                                    <input type="text" pInputText name="descEvento" [required]="true"
+                                    <input type="text" pInputText name="descEvento" [required]="true" [disabled]="edit"
                                         formControlName="descEvento" name="descEvento">
                                     <label>Nome Evento:</label>
                                 </span>
@@ -58,8 +58,8 @@
 
                             <div class="ui-g-7 ui-md-7">
                                 <span class="md-inputfield">
-                                    <p-calendar showTime="true" hourFormat="24" [required]="true"
-                                        formControlName="dataIniEvento" name="dataIniEvento" [showIcon]="true"
+                                    <p-calendar showTime="true" hourFormat="24"  [required]="true" dateFormat="dd/mm/yy"
+                                        formControlName="dataIniEvento" name="dataIniEvento" [showIcon]="true" [disabled]="edit"
                                         [style]="{'overflow':'visible'}">
                                     </p-calendar>
                                     <label>Data/Hora Inicio Evento</label>
@@ -69,7 +69,7 @@
 
                             <div class="ui-g-7 ui-md-7">
                                 <span class="md-inputfield">
-                                    <p-calendar showTime="true" hourFormat="24" [required]="true"
+                                    <p-calendar showTime="true" hourFormat="24" [required]="true" dateFormat="dd/mm/yy" [disabled]="edit"
                                         formControlName="dataFimEvento" name="dataFimEvento" [showIcon]="true">
                                     </p-calendar>
 
@@ -83,13 +83,13 @@
                             </div>
 
                             <div class="ui-g-7 ui-md-7">
-                                <p-multiSelect defaultLabel="Selecione Professores" [options]="professores"
+                                <p-multiSelect defaultLabel="Selecione Professores" [options]="professores" [disabled]="edit"
                                     formControlName="professoresSelecionados" name="professoresSelecionados"
                                     [filter]="true" filterBy="label"></p-multiSelect>
                             </div>
 
                             <div class="ui-g-7 ui-md-7">
-                                <p-multiSelect defaultLabel="Selecione Turmas" [options]="turmas" [filter]="true"
+                                <p-multiSelect defaultLabel="Selecione Turmas" [options]="turmas" [filter]="true" [disabled]="edit"
                                     filterBy="label" formControlName="turmasSelecionados" name="turmasSelecionados">
                                 </p-multiSelect>
                             </div>
@@ -106,13 +106,13 @@
                             <div class="ui-g-10 ui-md-10">
                                 <span class="md-inputfield">
 
-                                    <p-calendar showTime="true" hourFormat="24" [showIcon]="true"  [locale]="pt" formControlName="dataInclude" name="dataInclude"
+                                    <p-calendar showTime="true" hourFormat="24" [showIcon]="true"  [locale]="pt" formControlName="dataInclude" name="dataInclude" [disabled]="edit"
                                         [style]="{'overflow':'visible'}">
                                     </p-calendar>
                                     <label>Data/Hora Notificaçõa do Evento</label>
                                 </span>
                             </div>
-                            <p-button icon="pi pi-check" type="button" (click)="addData()"></p-button>
+                            <p-button icon="pi pi-check" type="button" (click)="addData()" [disabled]="edit"></p-button>
                         </div>
                     </div>
 
@@ -159,12 +159,17 @@
                 <div class="ui-g-12">
                     <div class="ui-g form-group">
                         <div class="ui-g-12 ui-md-4 ">
-                            <button pButton type="submit" label="Salvar" [disabled]="formulario.invalid"
+                            <button pButton type="submit" label="Salvar" [disabled]="formulario.invalid || edit"
                                 icon="fa ui-icon-save"></button>
                         </div>
                         <div class="ui-g-12 ui-md-3">
-                            <button type="button" pButton icon="pi pi-times" (click)="displayBasic=false"
+                            <button type="button" pButton icon="pi pi-times" (click)="cancela()"
                                 label="Cancelar" class="ui-button-secondary"></button>
+                        </div>
+
+                        <div class="ui-g-12 ui-md-4 ">
+                            <button pButton  label="Excluir" [disabled]="!edit"
+                                icon="fa ui-icon-save"></button>
                         </div>
 
                     </div>

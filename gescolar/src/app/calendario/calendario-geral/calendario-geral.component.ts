@@ -23,6 +23,7 @@ import { templateJitUrl } from '@angular/compiler';
 export class CalendarioGeralComponent implements OnInit {
 
     display: boolean;
+    edit: boolean;
     fullcalendarOptions: any;
     events: any[];
     opcoes: SelectItem[];
@@ -70,6 +71,9 @@ export class CalendarioGeralComponent implements OnInit {
                 this.calendarioService.loadEvento(id)
                 .then(evento => {
                     console.log(evento);
+                    this.display = true;
+                    this.edit = true;
+                    this.setaEvento(evento);
                 }).catch(erro => this.errorHandler.handle(erro));
             },
 
@@ -109,6 +113,30 @@ export class CalendarioGeralComponent implements OnInit {
         this.carregarEvento();
     }
 
+
+    setaEvento(evento: any) {
+        this.formulario.controls.descEvento.setValue(evento.title);
+        this.formulario.controls.dataIniEvento.setValue(this.parseStrToDate(evento.start));
+        this.formulario.controls.dataFimEvento.setValue(this.parseStrToDate(evento.end));
+    }
+
+
+    cancela() {
+       this.display = false;
+       this.edit = false;
+       this.formulario.reset();
+    }
+
+    parseStrToDate(str: any): any {
+        const dtIni =  str;
+        const dt = dtIni.substring(0, 10);
+        const time = dtIni.substring(11, 20);
+        const date: Date = new Date(dt);
+        date.setHours(time.substring(0, 2));
+        date.setMinutes(time.substring(3, 5));
+        date.setDate(date.getDate() + 1);
+        return date;
+    }
 
     configuraFormulario() {
         this.formulario = this.fb.group({
@@ -250,6 +278,7 @@ export class CalendarioGeralComponent implements OnInit {
     }
 
     showModalDialog() {
+        this.formulario.controls.selectedOpcao.setValue("GERAL");
         this.display = true;
     }
 

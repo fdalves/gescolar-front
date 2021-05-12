@@ -27,7 +27,7 @@
         "@fullcalendar/interaction": "4.0.2",
         "@fullcalendar/timegrid": "4.0.1",
         "angular-validate-br": "0.1.0-beta",
-        "chart.js": "2.7.3",
+        "chart.js": "2.9.4",
         "intl": "1.2.5",
         "primeflex": "1.0.0",
         "primeng": "9.0.1",
